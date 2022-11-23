@@ -19,7 +19,7 @@ body {
     border-radius: 20px;
     box-shadow: 0 0 7px rgba(236, 15, 15, 0.15);
     resize: none;
-    font-family: cursive;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 1em;
     outline: none;
 }
