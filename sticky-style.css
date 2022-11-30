@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    background-image: url(sticky-notes-background.jpg);
 }
 
 #app {
@@ -8,6 +7,8 @@ body {
     grid-template-columns: repeat(auto-fill, 250px);
     padding: 16px;
     gap: 30px;
+    height: 100vh;
+    background-image: url(sticky-notes-background.jpg);
 
 }
 
@@ -37,4 +38,8 @@ body {
 
 .add-button:hover {
     background: darkgray;
+}
+
+.showNotes {
+    display: unset;
 }

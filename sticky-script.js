@@ -1,7 +1,5 @@
 const notesContainer = document.getElementById("app");   // create variable=notesContainer by Id("app").
 const addNoteButton = notesContainer.querySelector(".add-button");  // create var=addNoteButton by class of button("add-button").
-console.log(notesContainer);
-console.log(addNoteButton);
 
 
 getNotes().forEach((notes) => { // for every single notes exist in LS grab it one by one
