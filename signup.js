@@ -10,14 +10,26 @@ const firstnameText = document.querySelector("#firstname-text");
 const lastnameText = document.querySelector("#lastname-text");
 const emailText = document.querySelector("#email-text");
 const pswdText = document.querySelector("#pswd-text");
-const confirmPswdText = document.querySelector("#onfirmPswd-text");
+const confirmPswdText = document.querySelector("#confirmPswd-text");
 
-const loginForm = document.querySelector(".login-form");
-const loginHeader = document.querySelector(".login-header");
-const loginBtn = document.querySelector("#loginBtn");
-const signupForm = document.querySelector(".signup-form");
+const signupContainer = document.querySelector(".signupContainer")
 const signupHeader = document.querySelector(".signup-header");
-const signupBtn = document.querySelector("#signupBtn");
+const signupForm = document.querySelector(".signup-form");
+const signupBtnM = document.querySelector("#signupBtnM"); //signup form pr signup btn which stores the data.
+const loginBtn = document.querySelector("#loginBtn"); // signup pr login btn
+
+// login ref--
+
+const loginContainer = document.querySelector(".loginContainer")
+const loginHeader = document.querySelector(".loginHeader");
+const loginForm = document.querySelector(".login-form");
+const submitBtn = document.querySelector("#submitBtn");
+const signupBtn1 = document.querySelector("#signupBtn1"); // login form pr signup btn.
+
+const pswd = document.querySelector("#password"); // login pswd input
+const appContainer = document.querySelector(".appContainer") // notes
+
+
 //------------------------------------------------------------------------------------------------------------------------
 
 
@@ -55,7 +67,11 @@ signupPswd.addEventListener("change", (e) => {
 
 // function on submit which Re-checks all conditions:-------------------
 
-function registerNewUser() {
+signupBtnM.addEventListener("click", () => {
+
+
+
+// function registerNewUser() {
     
     let flag = true;
 
@@ -113,25 +129,47 @@ function registerNewUser() {
     }
 
     return false;
-}
-
-// form switched---------------------->
-loginBtn.addEventListener("click", () => {
-
-    loginForm.classList.add("hide");
-    loginHeader.classList.add("hide");
-
-    signupForm.classList.remove("hide");
-    signupHeader.classList.remove("hide");
 
 })
 
-signupBtn.addEventListener("click", () => {
+// login_form btn switched---------------------->
 
-    signupForm.classList.add("hide");
-    signupHeader.classList.add("hide");
+submitBtn.addEventListener("click", () => {
+    console.log("form func is running")
 
-    loginForm.classList.remove("hide");
-    loginHeader.classList.remove("hide");
+    const user = JSON.parse(localStorage.getItem(email.value)) // localstorage data=object
+    console.log("user Data", user);
 
+    if (localStorage.getItem(email.value)) { // user email
+        if (user.pswd === pswd.value) { // user.pswd = DataBase pswd  & pswd.value = user's entered pswd.
+            console.log("open NOtes")
+            loginContainer.classList.add("hide")
+            appContainer.classList.add("show")
+            console.log("checking notes value", appContainer)
+            
+        } else {
+            alert("Password is invalid"),// nested if's else
+            pswdTex.classList.add("show")
+        } 
+
+
+    } else (
+        alert(" Please Enter Valid email & Password"), // empty email only / pswd only.&& both wrong
+        pswdTex.classList.add("show")
+    )
+})
+
+signupBtn1.addEventListener("click", () => {
+    console.log("running new signup btn", loginContainer)
+    loginContainer.classList.add("hide")
+    signupContainer.classList.remove("hide")
+
+})
+
+// signup_btn----------
+
+loginBtn.addEventListener("click", () => {
+    console.log("ye konsa btn hai", loginBtn)
+    signupContainer.classList.add("hide")
+    loginContainer.classList.add("show")
 })
