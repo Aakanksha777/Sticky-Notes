@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Sticky-Notes</title>
-    <link rel="stylesheet" href="./form.css">
-    <link rel="stylesheet" href="sticky-style.css">
+    <title>Sticky-Notes</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-<!------------------------------- Sticky_Notes ---------------------------------------->
-<!-- #app
-.notes
-.add-button -->
-<div class="appContainer hide">   
-    <div id="app">
-        <!-- <textarea class="notes">learn JavaScript</textarea> -->
-        <button class="add-button" type="button">+</button>
+    <!------------------------------- Sticky_Notes ---------------------------------------->
+    <div class="appContainer hide">
+        <div id="app">
+            <!-- <textarea class="notes">learn JavaScript</textarea> -->
+            <button class="add-button" type="button">+</button>
+        </div>
     </div>
-</div> 
 
-<!-- ---------------------------------LogIn ------------------------------------------ -->
+    <!-- ---------------------------------LogIn ------------------------------------------ -->
     <div class="loginContainer">
-        <h2 class="loginHeader" style="text-align: center;">LOGIN</h2> 
-       <form class="form-tag, login-form " id="loginForm">
-           <div class="form-input">
-               <label for="email" class="label">Email</label>
-               <input type="email" id="email" name="email" placeholder="Email">
-           </div>
-        
-           <div class="form-input">
-               <label style="margin-bottom: 3px;">Password</label>
-               <input type="text" id="password" name="password" placeholder="password">
-               <span class="loginPswd">Enter Valid Email & Password</span>
-           </div>
-        
-           <button type="button" id="submitBtn">Submit</button> <!-- change Btn to submitbtn -->
-           <p>New User Signup here</p>
-           <button type="button"  id="signupBtn1">Signup</button>  <!-- change loginBtn to signupBtn1 -->
-       </form>
+        <h2 class="loginHeader" style="text-align: center;">LOGIN</h2>
+        <form class="form-tag login-form" id="loginForm">
+            <div class="form-input">
+                <label for="email" class="label">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email">
+            </div>
+
+            <div class="form-input">
+                <label style="margin-bottom: 3px;">Password</label>
+                <input type="text" id="password" name="password" placeholder="password">
+                <span class="loginPswd">Enter Valid Email & Password</span>
+            </div>
+            <div class="checkbox"><input type="checkbox" id="check" name="check" value="check">
+                <label for="check">Remember me</label>
+            </div>
+            <button id="submitBtn">Submit</button> <!-- change Btn to submitbtn -->
+            <p>New User Signup here</p>
+            <button type="button" id="signupBtn1">Signup</button> <!-- change loginBtn to signupBtn1 -->
+        </form>
     </div>
 
-<!-- --------------------------------SignUp----------------------------------------------->
+    <!-- --------------------------------SignUp----------------------------------------------->
     <div class="signupContainer hide ">
-        <h2 class="signup-header ">SIGNUP</h2> 
-        <form class="form-tag , signup-form" onsubmit="return registerNewUser()">
+        <h2 class="signup-header ">SIGNUP</h2>
+        <form class="form-tag , signup-form" onsubmit="return registerNewUser(this)">
             <div class="form-input">
                 <label for="firstname">Firstname</label>
                 <input placeholder="Enter firstname" name="firstName" id="signupFname">
@@ -52,7 +52,7 @@
             </div>
             <div class="form-input">
                 <label for="lastname">Lastname</label>
-                <input placeholder="Enter Lastname" name="lastName" id="signupLname" >
+                <input placeholder="Enter Lastname" name="lastName" id="signupLname">
                 <span id="lastname-text">Required*</span>
             </div>
             <div class="form-input">
@@ -70,19 +70,13 @@
                 <input placeholder="Confirm Password" name="confirmPswd" id="signupCnfrmPswd">
                 <span id="confirmPswd-text">Password not matched</span>
             </div>
-
-            <div class="checkbox"><input type="checkbox" id="check" name="check" value="check">
-                <label for="check">Remember me</label>
-            </div>
-
-            <button type="submit" class="btn" id="signupBtnM">Signup</button> <!--btn to signupBtnM-->
+            <button type="submit" class="btn" id="signupBtnM">Signup</button>
+            <!--btn to signupBtnM-->
             <p><b>Already have Account?</b></p>
             <button id="loginBtn" type="button" class="btn">Login here</button>
         </form>
     </div>
+    <script src="./index.js"></script>
 </body>
-    <!-- <script src="./notes.js"></script> -->
-    <script src="./signup.js"></script>
-    <!-- <script src="./login.js"></script> -->
-    <script src="sticky-script.js"></script>
+
 </html>
