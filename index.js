@@ -105,9 +105,10 @@ function registerNewUser(obj) {
 //----------login_form_submit-------------------// DONE
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault()
+    debugger
     const loginForm = e.target
     const email = loginForm.email
-    const password = loginForm.password.value
+    const password = loginForm.password
     const isUserExist = localStorage.getItem(email.value)
     if (isUserExist) { 
         const userData = JSON.parse(isUserExist)
