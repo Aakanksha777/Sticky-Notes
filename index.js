@@ -3,79 +3,86 @@
 const appContainer = document.querySelector(".appContainer");
 const loginContainer = document.querySelector(".loginContainer");
 const signupContainer = document.querySelector(".signupContainer");
+const auth = document.querySelector(".authentication");
+const regxPatterns = {
+    password:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
+    firstName:  /^[A-Za-z]+$/,
+    lastName:  /^[A-Za-z]+$/,
+    emailId: /@/
+}
 
 //--------------------------Login_form_References------------------------------------
 
 const loginForm = document.querySelector("#loginForm");
-const submitBtn = document.querySelector("#submitBtn");
-const signupBtn1 = document.querySelector("#signupBtn1");
-
+const switchToSignUp = document.querySelector(".switchToSignUp")
+const switchToLogin = document.querySelector(".switchToLogin")
 //---------------------------Signup_form_References------------------------------------
 
-const signupForm = document.querySelectorAll(".signup-form");
+const signupForm = document.querySelector(".signup-form");
+const signUpPassword = signupForm.querySelector("input[name=password]")
+const singUpInputFields = signupForm.querySelectorAll("input")
 
-// functions for checking REGEX:---------------------------------------
-
-signupFname.addEventListener("change", (e) => {
-    firstValue = e.target.value;
-    if (!(/^[A-Z]*$/.test(firstValue))) {
-        FnameText.style.display = "block"
-    }
+//---------------SwitchingDisplay_func------------// 
+const switchingDisplay = (hideThisBlock,showThisBlock) => {
+    hideThisBlock.classList.add("hide")
+    showThisBlock.classList.remove("hide")
+} 
+switchToSignUp.addEventListener("click", () => {
+    switchingDisplay(loginContainer, signupContainer)
+})
+switchToLogin.addEventListener("click", () => {
+    switchingDisplay(signupContainer,loginContainer)
 })
 
-signupLname.addEventListener("change", (e) => {
-    lastValue = e.target.value
-    if (!(/^[A-Za-z]+$/.test(lastValue))) {
-        LnameText.style.display = "block"
-    }
+singUpInputFields.forEach((input)=>{
+    input.addEventListener("change", (e) =>{
+        input.name !== "confirmPassword" ?
+         validationCheck(e,regxPatterns[input.name])
+         :  matchPassword(e)
+    })
 })
-
-signupId.addEventListener("change", (e) => {
-    emailValue = e.target.value
-    if (!(/@/.test(emailValue))) {
-        idText.style.display = "block"
+const validationCheck = (e,regx) => {
+    const element =  e.target
+    element.nextElementSibling.style.display = "none"
+    if(!(regx.test(element.value))){
+        element.nextElementSibling.style.display = "block"
     }
-})
-
-signupPswd.addEventListener("change", (e) => {
-    pswdValue = e.target.value
-    // regexPswd = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8}$/ // 1uppercase, 1special character, 
-    regexPswd = /^[0-9]*$/
-    if (!(regexPswd.test(pswdValue))) {
-        signupPswdText.style.display = "block"
+}
+const matchPassword = (e) => {
+    const element =  e.target
+    element.nextElementSibling.style.display = "none"
+    if(signUpPassword.value !== element.value){
+        element.nextElementSibling.style.display = "block"
     }
-})
+}
 //-------------------SignUp form submit-------------------// DONE
 
 function registerNewUser(obj) {
     const firstName = obj.firstName
     const lastName = obj.lastName
     const emailId = obj.emailId
-    const password = obj.newPswd
-    const repeatPassword = obj.confirmPswd
+    const password = obj.password
+    const repeatPassword = obj.confirmPassword
     // Variables defining RegExp
-    const passRegx = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8}$/ // 1 uppercase, 1 special character, 
-    const nameRegx = /^[A-Za-z]+$/
-    const emailRegx = /@/
-    if (!(nameRegx.test(firstName.value))) {
+    if (!(regxPatterns.firstName.test(firstName.value))) {
         firstName.nextElementSibling.style.display = "block"
-        return
+        return false
     }
-    if (!(nameRegx.test(lastName.value))) {
+    if (!(regxPatterns.lastName.test(lastName.value))) {
         lastName.nextElementSibling.style.display = "block"
-        return
+        return false
     }
-    if (!(emailRegx.test(emailId.value))) {
+    if (!(regxPatterns.emailId.test(emailId.value))) {
         emailId.nextElementSibling.style.display = "block"
-        return
+        return false
     }
-    if (!(passRegx.test(password.value))) {
+    if (!(regxPatterns.password.test(password.value))) {
         password.nextElementSibling.style.display = "block"
-        return
+        return false
     }
     if(password.value !== repeatPassword.value){
         repeatPassword.nextElementSibling.style.display = "block"
-        return
+        return false
     }
     
     //creating object for Local storage:-
@@ -94,50 +101,29 @@ function registerNewUser(obj) {
     }
     return false;
 }
-//----------login_form_submit-------------------// DONE
 
+//----------login_form_submit-------------------// DONE
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault()
-    debugger
     const loginForm = e.target
-    const emailValue = loginForm.email.value
-    const passwordValue = loginForm.password.value
-    const isUserExist = localStorage.getItem(emailValue)
+    const email = loginForm.email
+    const password = loginForm.password.value
+    const isUserExist = localStorage.getItem(email.value)
     if (isUserExist) { 
         const userData = JSON.parse(isUserExist)
-        if (userData.pswd === passwordValue) { // user.pswd = DataBase pswd  & pswd.value = user's entered pswd.
-            console.log("open NOtes")
-            // loginContainer.classList.add("hide")
-            // appContainer.classList.add("show")
-            console.log("checking notes value", appContainer)
-
+        if (userData.password === password.value) { // user.pswd = DataBase pswd  & pswd.value = user's entered pswd.
+            switchingDisplay(auth,appContainer)
         } else {
-            alert("Password is invalid")// nested if's else
-                // pswdTex.classList.add("show")
+            password.nextElementSibling.style.display = "block"
         }
     } else {
-        alert(" Please Enter Valid email & Password") // empty email only / pswd only.&& both wrong
-        // pswdTex.classList.add("show")
+            email.nextElementSibling.style.display = "block"
     }
 })
-
-//---------------SwitchingDisplay_func------------// 
-// signupBtn1.addEventListener("click", () => {
-//     signupContainer.classList.remove("hide")
-//     loginContainer.classList.add("hide")
-// })
-// loginBtn.addEventListener("click", () => {
-//     console.log("ye konsa btn hai", loginBtn)
-//     signupContainer.classList.add("hide")
-//     loginContainer.classList.add("show")
-// })
-
-
 
 
 const notesContainer = document.getElementById("app");   // create variable=notesContainer by Id("app").
 const addNoteButton = notesContainer.querySelector(".add-button");  // create var=addNoteButton by class of button("add-button").
-
 
 getNotes().forEach((notes) => { // for every single notes exist in LS grab it one by one
 

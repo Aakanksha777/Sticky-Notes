@@ -5,15 +5,22 @@
     padding: 0;
 }
 
+.err {
+    color: red;
+    font-size: 12px;
+    display: none;
+}
+
 #loginForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;    
+    margin-top: 50px;
 }
 
-.signup-header, .login-header{
+.signup-header,
+.login-header {
     text-align: center;
     margin-top: 50px;
 }
@@ -31,8 +38,9 @@
     font-weight: 700;
     border: 2px solid grey;
     padding: 15px;
-    border-radius: 5px; 
-    margin-inline: auto; /*ek sth left, right margin ke ly */
+    border-radius: 5px;
+    margin-inline: auto;
+    /*ek sth left, right margin ke ly */
 }
 
 .form-input {
@@ -53,23 +61,33 @@
     margin-top: 6px;
     border-radius: 10px;
 }
+
 .hide {
     display: none;
 }
+
 .show {
     display: unset;
 }
 
-.loginPswd {display: none;}
+.loginPswd {
+    display: none;
+}
+
 .loginPswd2 {
-    color: red; 
+    color: red;
     display: unset;
     font-size: 15px;
 }
 
 
-#email-text , #firstname-text , #pswd-text , #lastname-text, #confirmPswd-text, #loginFnametext{
-    color: red; 
+#email-text,
+#firstname-text,
+#pswd-text,
+#lastname-text,
+#confirmPswd-text,
+#loginFnametext {
+    color: red;
     display: none;
     font-size: 15px;
 }
@@ -77,14 +95,15 @@
 
 
 .text2 {
-   visibility: visible;
+    visibility: visible;
 }
 
 .checkbox {
     display: inline-block;
 }
 
-#btn, #loginBtn {
+#btn,
+#loginBtn {
     padding: 8px;
     border-radius: 5px;
     margin: 10px;
@@ -125,7 +144,7 @@ body {
     border-radius: 20px;
     font-size: 3em;
     color: rgba(0, 0, 0, 0.6);
-    transition: background 0.2s;
+    /* transition: background 0.2s; */
 }
 
 .add-button:hover {
@@ -142,7 +161,7 @@ body {
     width: 600px;
     height: 500px;
     position: absolute;
-    top:0;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0;
@@ -160,6 +179,7 @@ body {
     margin: 80px;
     margin-left: 80px;
 }
+
 #email {
     height: 28px;
     width: 400px;
@@ -181,21 +201,23 @@ body {
 
 }
 
-#btn, #signUpBtn {
+#btn,
+#signUpBtn {
     background-color: teal;
     color: darkgray;
     padding: 9px;
-    border:  1.5px solid darkgray;
+    border: 1.5px solid darkgray;
     font-weight: bold;
     font-size: 20px;
     border-radius: 5px;
     display: inline;
     margin-left: 10px;
 }
- 
+
 a {
     text-decoration: none;
 }
+
 #signUpBtn {
     margin-left: 10px;
     margin-right: 60px;
