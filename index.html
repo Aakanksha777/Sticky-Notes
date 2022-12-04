@@ -1,88 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Sticky-Notes</title>
-    <link rel="stylesheet" href="./form.css">
-    <link rel="stylesheet" href="sticky-style.css">
+    <title>Sticky-Notes</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-<!------------------------------- Sticky_Notes ---------------------------------------->
-<!-- #app
-.notes
-.add-button -->
-<div class="appContainer hide">   
-    <div id="app">
-        <!-- <textarea class="notes">learn JavaScript</textarea> -->
-        <button class="add-button" type="button">+</button>
-    </div>
-</div> 
-
-<!-- ---------------------------------LogIn ------------------------------------------ -->
-    <div class="loginContainer">
-        <h2 class="loginHeader" style="text-align: center;">LOGIN</h2> 
-       <form class="form-tag, login-form " id="loginForm">
-           <div class="form-input">
-               <label for="email" class="label">Email</label>
-               <input type="email" id="email" name="email" placeholder="Email">
-           </div>
-        
-           <div class="form-input">
-               <label style="margin-bottom: 3px;">Password</label>
-               <input type="text" id="password" name="password" placeholder="password">
-               <span class="loginPswd">Enter Valid Email & Password</span>
-           </div>
-        
-           <button type="button" id="submitBtn">Submit</button> <!-- change Btn to submitbtn -->
-           <p>New User Signup here</p>
-           <button type="button"  id="signupBtn1">Signup</button>  <!-- change loginBtn to signupBtn1 -->
-       </form>
+    <!------------------------------- Sticky_Notes ---------------------------------------->
+    <div class="appContainer hide">
+        <div id="app">
+            <!-- <textarea class="notes">learn JavaScript</textarea> -->
+            <button class="add-button" type="button">+</button>
+        </div>
     </div>
 
-<!-- --------------------------------SignUp----------------------------------------------->
-    <div class="signupContainer hide ">
-        <h2 class="signup-header ">SIGNUP</h2> 
-        <form class="form-tag , signup-form" onsubmit="return registerNewUser()">
-            <div class="form-input">
-                <label for="firstname">Firstname</label>
-                <input placeholder="Enter firstname" name="firstName" id="signupFname">
-                <span id="firstname-text">write in Capital Letters</span>
-            </div>
-            <div class="form-input">
-                <label for="lastname">Lastname</label>
-                <input placeholder="Enter Lastname" name="lastName" id="signupLname" >
-                <span id="lastname-text">Required*</span>
-            </div>
-            <div class="form-input">
-                <label for="emailId">Email-id</label>
-                <input placeholder="Your Email id" name="emailId" id="signupId">
-                <span id="email-text">Invalid Email</span>
-            </div>
-            <div class="form-input">
-                <label for="passwordS">Password</label>
-                <input placeholder="New Password" name="newPswd" id="signupPswd">
-                <span id="pswd-text">Must be in numbers</span>
-            </div>
-            <div class="form-input">
-                <label for="confirmPswd">Confirm Password</label>
-                <input placeholder="Confirm Password" name="confirmPswd" id="signupCnfrmPswd">
-                <span id="confirmPswd-text">Password not matched</span>
-            </div>
+    <div class="authentication">
+        <!-- ---------------------------------LogIn ------------------------------------------ -->
+        <div class="loginContainer">
+            <h2 class="loginHeader" style="text-align: center;">LOGIN</h2>
+            <form class="form-tag login-form" id="loginForm">
+                <div class="form-input">
+                    <label for="email" class="label">Email</label>
+                    <input type="email" name="email" placeholder="Email">
+                    <span class="err">Enter Valid Email Address</span>
+                </div>
 
-            <div class="checkbox"><input type="checkbox" id="check" name="check" value="check">
-                <label for="check">Remember me</label>
-            </div>
+                <div class="form-input">
+                    <label style="margin-bottom: 3px;">Password</label>
+                    <input type="text" name="password" placeholder="password">
+                    <span class="err">Enter Valid Password</span>
+                </div>
+                <div class="checkbox"><input type="checkbox" id="check" name="check" value="check">
+                    <label for="check">Remember me</label>
+                </div>
+                <button>Submit</button> <!-- change Btn to submitbtn -->
+                <p>New User Signup here</p>
+                <button type="button" class="switchToSignUp">Signup</button> <!-- change loginBtn to signupBtn1 -->
+            </form>
+        </div>
 
-            <button type="submit" class="btn" id="signupBtnM">Signup</button> <!--btn to signupBtnM-->
-            <p><b>Already have Account?</b></p>
-            <button id="loginBtn" type="button" class="btn">Login here</button>
-        </form>
+        <!-- --------------------------------SignUp----------------------------------------------->
+        <div class="signupContainer hide ">
+            <h2 class="signup-header ">SIGNUP</h2>
+            <form class="form-tag signup-form" onsubmit="return registerNewUser(this)">
+                <div class="form-input">
+                    <label for="firstname">Firstname</label>
+                    <input placeholder="Enter firstname" name="firstName" id="signupFname">
+                    <span class="err">Only use Alphabets</span>
+                </div>
+                <div class="form-input">
+                    <label for="lastname">Lastname</label>
+                    <input placeholder="Enter Lastname" name="lastName" id="signupLname">
+                    <span class="err">Only use Alphabets*</span>
+                </div>
+                <div class="form-input">
+                    <label for="emailId">Email-id</label>
+                    <input placeholder="Your Email id" name="emailId" id="signupId">
+                    <span class="err">Invalid Email</span>
+                </div>
+                <div class="form-input">
+                    <label for="passwordS">Password</label>
+                    <input placeholder="New Password" name="password">
+                    <span class="err">A password must contain one speacial character from (! @ # $ & *), one capital and
+                        one small case character and a number. Length should atleast 6 characters</span>
+                </div>
+                <div class="form-input">
+                    <label for="confirmPswd">Confirm Password</label>
+                    <input placeholder="Confirm Password" name="confirmPassword">
+                    <span class="err">Password not matched</span>
+                </div>
+                <button type="submit" class="btn" id="signupBtnM">Signup</button>
+                <!--btn to signupBtnM-->
+                <p><b>Already have Account?</b></p>
+                <button type="button" class="switchToLogin">Login here</button>
+            </form>
+        </div>
     </div>
+
+
+    <script src="./index.js"></script>
 </body>
-    <!-- <script src="./notes.js"></script> -->
-    <script src="./signup.js"></script>
-    <!-- <script src="./login.js"></script> -->
-    <script src="sticky-script.js"></script>
+
 </html>

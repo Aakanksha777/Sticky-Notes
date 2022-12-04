@@ -1,175 +1,210 @@
-//Taking Refernces:------------------------------------------
+//-------------------------Main 3 Containers-----------------------------------------
 
-const signupFname = document.querySelector("#signupFname");
-const signupLname = document.querySelector("#signupLname");
-const signupId = document.querySelector("#signupId");
-const signupPswd = document.querySelector("#signupPswd"); 
-const signupCnfrmPswd = document.querySelector("#signupCnfrmPswds");
+const appContainer = document.querySelector(".appContainer");
+const loginContainer = document.querySelector(".loginContainer");
+const signupContainer = document.querySelector(".signupContainer");
+const auth = document.querySelector(".authentication");
+const regxPatterns = {
+    password:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
+    firstName:  /^[A-Za-z]+$/,
+    lastName:  /^[A-Za-z]+$/,
+    emailId: /@/
+}
 
-const firstnameText = document.querySelector("#firstname-text");
-const lastnameText = document.querySelector("#lastname-text");
-const emailText = document.querySelector("#email-text");
-const pswdText = document.querySelector("#pswd-text");
-const confirmPswdText = document.querySelector("#confirmPswd-text");
+//--------------------------Login_form_References------------------------------------
 
-const signupContainer = document.querySelector(".signupContainer")
-const signupHeader = document.querySelector(".signup-header");
+const loginForm = document.querySelector("#loginForm");
+const switchToSignUp = document.querySelector(".switchToSignUp")
+const switchToLogin = document.querySelector(".switchToLogin")
+//---------------------------Signup_form_References------------------------------------
+
 const signupForm = document.querySelector(".signup-form");
-const signupBtnM = document.querySelector("#signupBtnM"); //signup form pr signup btn which stores the data.
-const loginBtn = document.querySelector("#loginBtn"); // signup pr login btn
+const signUpPassword = signupForm.querySelector("input[name=password]")
+const singUpInputFields = signupForm.querySelectorAll("input")
 
-// login ref--
-
-const loginContainer = document.querySelector(".loginContainer")
-const loginHeader = document.querySelector(".loginHeader");
-const loginForm = document.querySelector(".login-form");
-const submitBtn = document.querySelector("#submitBtn");
-const signupBtn1 = document.querySelector("#signupBtn1"); // login form pr signup btn.
-
-const pswd = document.querySelector("#password"); // login pswd input
-const appContainer = document.querySelector(".appContainer") // notes
-
-
-//------------------------------------------------------------------------------------------------------------------------
-
-
-// functions for checking REGEX:---------------------------------------
-
-signupFname.addEventListener("change", (e) => {
-    firstValue = e.target.value;
-    if (!(/^[A-Z]*$/.test(firstValue))) {
-        firstnameText.style.display = "block"
-    }
+//---------------SwitchingDisplay_func------------// 
+const switchingDisplay = (hideThisBlock,showThisBlock) => {
+    hideThisBlock.classList.add("hide")
+    showThisBlock.classList.remove("hide")
+} 
+switchToSignUp.addEventListener("click", () => {
+    switchingDisplay(loginContainer, signupContainer)
+})
+switchToLogin.addEventListener("click", () => {
+    switchingDisplay(signupContainer,loginContainer)
 })
 
-signupLname.addEventListener("change", (e) => {
-    lastValue = e.target.value
-    if(!(/^[A-Za-z]+$/.test(lastValue))) {
-        lastnameText.style.display = "block"
-    }
+singUpInputFields.forEach((input)=>{
+    input.addEventListener("change", (e) =>{
+        input.name !== "confirmPassword" ?
+         validationCheck(e,regxPatterns[input.name])
+         :  matchPassword(e)
+    })
 })
-
-signupId.addEventListener("change", (e) => {
-    emailValue = e.target.value
-    if(!(/@/.test(emailValue))) {
-        emailText.style.display="block"
+const validationCheck = (e,regx) => {
+    const element =  e.target
+    element.nextElementSibling.style.display = "none"
+    if(!(regx.test(element.value))){
+        element.nextElementSibling.style.display = "block"
     }
-})
-
-signupPswd.addEventListener("change", (e) => {
-    pswdValue = e.target.value
-    // regexPswd = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8}$/ // 1uppercase, 1special character, 
-    regexPswd = /^[0-9]*$/
-    if(!(regexPswd.test(pswdValue))) {
-        pswdText.style.display = "block"
+}
+const matchPassword = (e) => {
+    const element =  e.target
+    element.nextElementSibling.style.display = "none"
+    if(signUpPassword.value !== element.value){
+        element.nextElementSibling.style.display = "block"
     }
-})
+}
+//-------------------SignUp form submit-------------------// DONE
 
-// function on submit which Re-checks all conditions:-------------------
-
-signupBtnM.addEventListener("click", () => {
-
-
-
-// function registerNewUser() {
-    
-    let flag = true;
-
-    let Fvalue = signupFname.value;
-    if (!(/^[A-Z]*$/.test(Fvalue))) {
-        firstnameText.style.display = "block"
-        flag = false;
-
-    } 
-
-    let Lvalue = signupLname.value;
-    if(!(/^[A-Za-z]+$/.test(Lvalue))) {
-        lastnameText.style.display = "block"
-        flag = false;
-
-    } 
-
-    let Evalue = signupId.value;
-    if(!(/@/.test(Evalue))) {
-        emailText.style.display="block"
-        flag = false;
-
-    } 
-
-    let Pvalue = signupPswd.value;
-    // regexPswd = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8}$/ // 1uppercase, 1special character, 
-    regexPswd= /^[0-9]*$/
-
-    if(!(regexPswd.test(Pvalue))) {
-        pswdText.style.display = "block"
-        flag = false;
-
+function registerNewUser(obj) {
+    const firstName = obj.firstName
+    const lastName = obj.lastName
+    const emailId = obj.emailId
+    const password = obj.password
+    const repeatPassword = obj.confirmPassword
+    // Variables defining RegExp
+    if (!(regxPatterns.firstName.test(firstName.value))) {
+        firstName.nextElementSibling.style.display = "block"
+        return false
+    }
+    if (!(regxPatterns.lastName.test(lastName.value))) {
+        lastName.nextElementSibling.style.display = "block"
+        return false
+    }
+    if (!(regxPatterns.emailId.test(emailId.value))) {
+        emailId.nextElementSibling.style.display = "block"
+        return false
+    }
+    if (!(regxPatterns.password.test(password.value))) {
+        password.nextElementSibling.style.display = "block"
+        return false
+    }
+    if(password.value !== repeatPassword.value){
+        repeatPassword.nextElementSibling.style.display = "block"
+        return false
     }
     
-    const userFame = document.querySelector("#signupFname"); // taking referenes 
-    const userLname = document.querySelector("#signupLname");
-    const emailAddress = document.querySelector("#signupId");
-    const pswd = document.querySelector("#signupPswd");
-
-    const myData = {  // creating object
-        userFame : userFame.value,
-        userLname : userLname.value,
-        emailAddress : emailAddress.value,
-        pswd : pswd.value,
-        notes : [{}, {}]
+    //creating object for Local storage:-
+    const userData = {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        emailId: emailId.value, // local storage [Key]
+        password: password.value,
+        notes: []
     }
 
-    const ifUserExist = localStorage.getItem(emailAddress.value); //get data from local storage
-    // console.log("emailAddressValue",emailAddress.value);
-    
-    if (!ifUserExist && flag) { 
-        localStorage.setItem(emailAddress.value, JSON.stringify(myData)) // if false
-        // console.log(JSON.parse(localStorage.getItem(emailAddress.value))); // checking an object
-        
-    }
+    const ifUserExist = localStorage.getItem(emailId.value); //get data from local storage
 
+    if (!ifUserExist) {
+        localStorage.setItem(emailId.value, JSON.stringify(userData)) // if false
+    }
     return false;
+}
 
-})
-
-// login_form btn switched---------------------->
-
-submitBtn.addEventListener("click", () => {
-    console.log("form func is running")
-
-    const user = JSON.parse(localStorage.getItem(email.value)) // localstorage data=object
-    console.log("user Data", user);
-
-    if (localStorage.getItem(email.value)) { // user email
-        if (user.pswd === pswd.value) { // user.pswd = DataBase pswd  & pswd.value = user's entered pswd.
-            console.log("open NOtes")
-            loginContainer.classList.add("hide")
-            appContainer.classList.add("show")
-            console.log("checking notes value", appContainer)
-            
+//----------login_form_submit-------------------// DONE
+loginForm.addEventListener("submit", (e) => {
+    e.preventDefault()
+    debugger
+    const loginForm = e.target
+    const email = loginForm.email
+    const password = loginForm.password
+    const isUserExist = localStorage.getItem(email.value)
+    if (isUserExist) { 
+        const userData = JSON.parse(isUserExist)
+        if (userData.password === password.value) { // user.pswd = DataBase pswd  & pswd.value = user's entered pswd.
+            switchingDisplay(auth,appContainer)
         } else {
-            alert("Password is invalid"),// nested if's else
-            pswdTex.classList.add("show")
-        } 
-
-
-    } else (
-        alert(" Please Enter Valid email & Password"), // empty email only / pswd only.&& both wrong
-        pswdTex.classList.add("show")
-    )
+            password.nextElementSibling.style.display = "block"
+        }
+    } else {
+            email.nextElementSibling.style.display = "block"
+    }
 })
 
-signupBtn1.addEventListener("click", () => {
-    console.log("running new signup btn", loginContainer)
-    loginContainer.classList.add("hide")
-    signupContainer.classList.remove("hide")
 
-})
+const notesContainer = document.getElementById("app");   // create variable=notesContainer by Id("app").
+const addNoteButton = notesContainer.querySelector(".add-button");  // create var=addNoteButton by class of button("add-button").
 
-// signup_btn----------
+getNotes().forEach((notes) => { // for every single notes exist in LS grab it one by one
 
-loginBtn.addEventListener("click", () => {
-    console.log("ye konsa btn hai", loginBtn)
-    signupContainer.classList.add("hide")
-    loginContainer.classList.add("show")
-})
+    const noteElement = createNoteElement(notes.id, notes.content);
+    notesContainer.insertBefore(noteElement, addNoteButton);
+    console.log(noteElement);
+});
+
+
+addNoteButton.addEventListener("click", () => addNote());
+
+
+//functions 1; // retrieve all existing notes from local storage.
+function getNotes() {
+    return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]"); //stickynotes?, is notes a class?
+}
+
+//functions 2; take array of notes.
+function saveNotes(notes) {
+    localStorage.setItem("stickynotes-notes", JSON.stringify(notes));
+    console.log(notes);
+}
+
+//functions 3; build new note 
+function createNoteElement(id, content) {  // id? content?
+    const element = document.createElement("textarea");
+    // <textarea></textarea>
+
+    // createElement creates an element node., element is yet to exist
+
+    element.classList.add("notes");
+    // <textarea class="notes"></textarea>
+
+    element.value = content;
+    // <textarea class="notes">content</textarea>
+    element.placeholder = "write from here";
+
+    element.addEventListener("change", () => {  //change= when the value of input is changed.
+        updateNote(id, element.value); // update note`s id and content.
+    });
+
+    element.addEventListener("dblclick", () => {  // on double click , delete the notes.
+        const doDelete = confirm("Are you sure?");
+
+        if (doDelete) {
+            deleteNote(id, element);
+        }
+    });
+    return element;
+}
+
+//functions 4; adding new notes not only to html , but also save it to local storage.
+function addNote() {
+    const notes = getNotes();  // variable notes is equal to getNotes().
+    const noteObject = {
+        id: Math.floor(Math.random() * 100000),
+        content: ""
+    };
+
+    const noteElement = createNoteElement(noteObject.id, noteObject.content);
+    notesContainer.insertBefore(noteElement, addNoteButton);
+
+    notes.push(noteObject);
+    saveNotes(notes);
+}
+
+
+//functions 5;
+function updateNote(id, newContent) {
+    const notes = getNotes();
+    const targetNote = notes.filter((notes) => notes.id != id);
+
+    targetNote.content = newContent;
+    saveNotes(notes);
+}
+
+//functions 6;
+function deleteNote(id, element) {
+    const notes = getNotes().filter((note) => note.id != id);
+
+    saveNotes(notes);
+    notesContainer.removeChild(element);
+}
